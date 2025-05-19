@@ -21,7 +21,7 @@ trap 'on_error ${LINENO}' ERR
 readonly OUTPUT_REDIRECT_PATH="${PROJECT_PATH}/var/log/${SCRIPT_RELATIVE_PATH}"
 readonly OUTPUT_REDIRECT_PATHNAME="${OUTPUT_REDIRECT_PATH}/$(basename ${0}).log"
 
-if [ ${VERBOSITY_LEVEL} -ge 1 ]; then
+if [ "${VERBOSITY_LEVEL}" -ge 1 ]; then
     readonly OUTPUT_REDIRECT="/dev/stdout"
 else
     readonly OUTPUT_REDIRECT="${OUTPUT_REDIRECT_PATHNAME}"

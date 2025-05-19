@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Steevanb\DevOps\EventListener;
 
 use Symfony\Component\Console\{
