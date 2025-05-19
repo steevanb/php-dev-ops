@@ -1,0 +1,21 @@
+{
+    "name": "steevanb/dev-ops",
+    "description": "DevOps tools for your projects",
+    "type": "library",
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "Steevanb\\DevOps\\": "src/"
+        }
+    },
+    "require": {},
+    "scripts": {
+        "post-install-cmd": [
+            "@rm-composer-lock"
+        ],
+        "post-update-cmd": [
+            "@rm-composer-lock"
+        ],
+        "rm-composer-lock": "rm composer.lock"
+    }
+}
