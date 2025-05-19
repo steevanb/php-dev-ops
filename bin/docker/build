@@ -4,6 +4,20 @@ set -eu
 
 readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/../..")"
 
-source "${PROJECT_PATH}"/config/docker/docker-image-name.inc.bash
+source "${PROJECT_PATH}"/config/docker/docker-image-names.inc.bash
 
-docker build --tag "${DOCKER_IMAGE_NAME}" "${PROJECT_PATH}"/docker
+docker build --tag "${DOCKER_PHP_IMAGE_NAME}" "${PROJECT_PATH}"/docker/php
+docker build --tag "${DOCKER_CI_IMAGE_NAME}" "${PROJECT_PATH}"/docker/ci
+
+PUSH=false
+for parameter in "${@}"; do
+    if [ "${parameter}" == "--push" ]; then
+        PUSH=true
+    fi
+done
+readonly PUSH
+
+if [ "${PUSH}" == true ]; then
+    docker push "${DOCKER_PHP_IMAGE_NAME}"
+    docker push "${DOCKER_CI_IMAGE_NAME}"
+fi

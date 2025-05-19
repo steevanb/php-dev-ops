@@ -5,7 +5,6 @@ set -eu
 readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/..")"
 
 source "${PROJECT_PATH}"/bin/common.inc.bash
+source "${PROJECT_PATH}"/bin/docker/dockerise.php.inc.bash
 
-source "${PROJECT_PATH}"/bin/docker/dockerise.inc.bash
-
-php "${PROJECT_PATH}"/bin/console.php ${@}
+php "${PROJECT_PATH}"/bin/console.php "${@}"

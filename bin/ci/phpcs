@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -eu
+
+readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/../..")"
+
+source "${PROJECT_PATH}"/bin/common.inc.bash
+source "${PROJECT_PATH}"/bin/docker/dockerise.ci.inc.bash
+
+if [ ! -d "${PROJECT_PATH}"/var/ci/phpcs ]; then
+    mkdir -p "${PROJECT_PATH}"/var/ci/phpcs
+fi
+
+phpcs --standard="${PROJECT_PATH}"/config/ci/phpcs.xml "${@}"

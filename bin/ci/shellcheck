@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -eu
+
+readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/../..")"
+
+source "${PROJECT_PATH}"/bin/common.inc.bash
+source "${PROJECT_PATH}"/bin/docker/dockerise.ci.inc.bash
+
+source "${PROJECT_PATH}"/config/ci/shellcheck.inc.bash
+
+filesToCheck=()
+files=$(find "${SHELLCHECK_DIRECTORIES[@]}")
+for file in ${files}; do
+    if [ -f "${file}" ] && [ ! -L "${file}" ] && [ "${file:(-4)}" != ".php" ]; then
+        filesToCheck+=("${file}")
+    fi
+done
+
+exitCode=0
+for fileToCheck in "${filesToCheck[@]}"; do
+    set +e
+    shellcheck --color=always --exclude "$(echo "${SHELLCHECK_EXCLUDES[@]}" | sed 's/ /,/g')" "${fileToCheck}"
+    if [ ${?} != 0 ]; then
+        exitCode=1
+    fi
+    set -e
+done
+
+if [ "${exitCode}" == 0 ]; then
+    echo -e "\e[42m ${#filesToCheck[@]} files contains valid syntax. \e[0m"
+fi
+
+exit ${exitCode}
