@@ -4,4 +4,6 @@ set -eu
 
 readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/../..")"
 
-docker build --tag steevanb/dev-ops "${PROJECT_PATH}"/docker
+source "${PROJECT_PATH}"/config/docker/docker-image-name.inc.bash
+
+docker build --tag "${DOCKER_IMAGE_NAME}" "${PROJECT_PATH}"/docker

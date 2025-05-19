@@ -11,3 +11,7 @@ source "${PROJECT_PATH}"/bin/theme.inc.bash
 theme_title "Build Docker stack"
 "${PROJECT_PATH}"/bin/docker/build >> "${OUTPUT_REDIRECT}" 2>&1
 theme_ok
+
+theme_title "Install dependencies"
+"${PROJECT_PATH}"/bin/composer install >> "${OUTPUT_REDIRECT}" 2>&1
+theme_ok
