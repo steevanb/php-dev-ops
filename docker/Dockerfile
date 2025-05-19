@@ -4,4 +4,6 @@ COPY --from=composer:2.8.9 /usr/bin/composer /usr/local/bin/
 
 RUN apk add bash
 
+ENV COMPOSER_CACHE_DIR=/app/var/composer
+
 WORKDIR /app
