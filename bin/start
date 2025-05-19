@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -eu
+
+readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/..")"
+
+source "${PROJECT_PATH}"/bin/common.inc.bash
+source "${PROJECT_PATH}"/bin/output-redirect.inc.bash
+source "${PROJECT_PATH}"/bin/theme.inc.bash
+
+theme_title "Build Docker stack"
+"${PROJECT_PATH}"/bin/docker/build >> "${OUTPUT_REDIRECT}" 2>&1
+theme_ok
