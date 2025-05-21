@@ -2,5 +2,5 @@
 
 set -eu
 
-readonly DOCKER_PHP_IMAGE_NAME=steevanb/dev-ops:php
-readonly DOCKER_CI_IMAGE_NAME=steevanb/dev-ops:ci
+readonly DOCKER_DEV_IMAGE_NAME=ghcr.io/steevanb/php-dev-ops:dev
+readonly DOCKER_CI_IMAGE_NAME=ghcr.io/steevanb/php-dev-ops:ci

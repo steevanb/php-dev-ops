@@ -11,7 +11,7 @@ source "${PROJECT_PATH}"/bin/output-redirect.inc.bash
 source "${PROJECT_PATH}"/bin/theme.inc.bash
 
 theme_title "Pull Docker images"
-docker pull "${DOCKER_PHP_IMAGE_NAME}" >> "${OUTPUT_REDIRECT}" 2>&1
+docker pull "${DOCKER_DEV_IMAGE_NAME}" >> "${OUTPUT_REDIRECT}" 2>&1
 docker pull "${DOCKER_CI_IMAGE_NAME}" >> "${OUTPUT_REDIRECT}" 2>&1
 theme_ok
 

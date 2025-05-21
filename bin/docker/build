@@ -6,7 +6,7 @@ readonly PROJECT_PATH="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/
 
 source "${PROJECT_PATH}"/config/docker/docker-image-names.inc.bash
 
-docker build --tag "${DOCKER_PHP_IMAGE_NAME}" "${PROJECT_PATH}"/docker/php
+docker build --tag "${DOCKER_DEV_IMAGE_NAME}" "${PROJECT_PATH}"/docker/php
 docker build --tag "${DOCKER_CI_IMAGE_NAME}" "${PROJECT_PATH}"/docker/ci
 
 PUSH=false
@@ -18,6 +18,13 @@ done
 readonly PUSH
 
 if [ "${PUSH}" == true ]; then
-    docker push "${DOCKER_PHP_IMAGE_NAME}"
+    if ! grep -q '"ghcr.io"' ~/.docker/config.json 2>/dev/null; then
+        echo -e "Create a token here: \033[32mhttps://github.com/settings/tokens\033[0m with \033[33mwrite:packages\033[0m and \033[33mread:packages\033[0m."
+        echo -e "Then: \033[33mecho <YOUR_GITHUB_TOKEN> | docker login ghcr.io -u <YOUR_GITHUB_USERNAME> --password-stdin\033[0m"
+        echo -n "Press any key when it's done."
+        read -r
+    fi
+
+    docker push "${DOCKER_DEV_IMAGE_NAME}"
     docker push "${DOCKER_CI_IMAGE_NAME}"
 fi
