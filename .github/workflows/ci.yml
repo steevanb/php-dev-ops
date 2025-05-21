@@ -4,7 +4,7 @@ jobs:
     validate:
         runs-on: ubuntu-latest
         container:
-            image: steevanb/dev-ops:ci
+            image: ghcr.io/steevanb/php-dev-ops:ci
         steps:
             -
                 name: Checkout repository
@@ -16,6 +16,6 @@ jobs:
                     path: vendor
                     key: composer-${{ hashFiles('composer.json') }}
                     restore-keys: composer-${{ hashFiles('composer.json') }}
-            - run: composer install --no-dev --optimize-autoloader
-            - run: bin/console cache:warmup
+            - run: composer install --no-dev --optimize-autoloader --ansi
+            - run: bin/console cache:warmup --ansi
             - run: bin/ci/validate --theme=summary
